@@ -1,20 +1,51 @@
-# Simple Rest API created with Hapi.js
+# Simple authenticated web service built with Hapi.js on IBM i
 
-# Initial Setup
+### Purpose
 
-install dependencies:
+Create a restful web service with basic authentication using [hapi](https://hapijs.com/) framework on IBM i.
 
-`npm install`
+Use [idb-pconnector](https://github.com/IBM/nodejs-idb-pconnector/) for access database and to validate IBM i user credentials.
 
-# Start the server
+**NOTE**
 
-`npm start`
+This example uses HTTP and is intended to be used for local testing.
 
-or for verbose output
+This was done to provide quick example without setting up of certificates.
 
-`DEBUG=true npm start`
+Almost always Basic Auth is used in conjunction with HTTPS to securely encrypt credentials.
 
-# Test
+Using [basic auth](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#Basic_authentication_scheme) without HTTPS in production is a BAD IDEA!
+
+### Prerequisites
+
+- `node.js` version 8 or newer
+
+- `git` to clone this example
+
+- `curl` to perform requests
+
+`yum install nodejs10 git curl`
+
+## Getting Started
+
+1. clone this project
+
+   `git clone git@github.com:abmusse/hapijs-example.git`
+
+2. change directory to the project
+
+   `cd hapijs-example`
+
+3. install dependencies
+
+   `npm install`
+
+4. start the server
+
+   `npm start`
+
+
+## Testing
 
 ### GET
 ```bash
@@ -25,7 +56,7 @@ curl --user user:pass http://hostname:4000/customer/938472
 
 ```bash
 
-curl --user user:pass -d '{"cusnum":9008, "lstnam":"Bryant", "init":"K B", "street":"100 Broadway", "city":"LA", "state":"CA", "zipcod":9999, "cdtlmt":2000, "chgcod":1, "baldue":250, "cdtdue":0.00}' -H 'Content-Type: application/json' -X POST http://hostname:4000/customer
+curl --user user:pass -d '{"cusnum":9008, "lstnam":"Bryant", "init":"K B", "street":"100 Broadway", "city":"LA", "state":"CA"}' -H 'Content-Type: application/json' -X POST http://hostname:4000/customer
 
 ```
 ### PUT
@@ -41,3 +72,5 @@ curl --user user:pass -d '{"cusnum":9008, "lstnam":"Jordan", "init":"M J"}' -H '
 ```bash
 curl --user user:pass -X DELETE http://hostname:4000/customer/9008
 ```
+
+For more details using curl checkout this [gist](https://gist.github.com/subfuzion/08c5d85437d5d4f00e58)
